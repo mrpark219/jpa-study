@@ -46,6 +46,15 @@ public class OrderSimpleApiController {
 			.collect(Collectors.toList());
 	}
 
+	@GetMapping("/api/v3/simple-orders")
+	public List<SimpleOrderDto> ordersV3() {
+		// fetch 조인으로 쿼리 1번에 모든 데이터를 가져옴
+		List<Order> orders = orderRepository.findALlWithMemberDelivery();
+		return orders.stream()
+			.map(SimpleOrderDto::new)
+			.collect(Collectors.toList());
+	}
+
 	@Data
 	static class SimpleOrderDto {
 		private Long orderId;
